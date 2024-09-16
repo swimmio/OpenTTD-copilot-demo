@@ -1,5 +1,5 @@
 ---
-title: Creating a Human-Readable Markdown Document
+title: Clearing a Station Tile
 ---
 ## Introduction
 
@@ -50,9 +50,5 @@ CommandCost ClearTile_Station(TileIndex tile, DoCommandFlag flags)
 </SwmSnippet>
 
 For more details, you can refer to the document, which explains the process of clearing a station tile in the game&nbsp;
-
-## Important Notice!
-
-Please note, this function caused many bugs in the past, if you want to change it please consult with one of the repository moderators 🙏
 
 <SwmMeta version="3.0.0"><sup>Powered by [Swimm](https://app.swimm.io/)</sup></SwmMeta>
