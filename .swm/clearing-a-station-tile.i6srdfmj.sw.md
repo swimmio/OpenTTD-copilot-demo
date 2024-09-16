@@ -1,41 +1,58 @@
 ---
 title: Clearing a Station Tile
 ---
-# Creating a Human-Readable Markdown Document
-
 ## Introduction
 
-This documentation provides a guideline on how to create a human-readable rich markdown document, based on a chat thread. The instructions are intended to help developers or document writers to transform chat conversations into structured and readable markdown content.
+This documentation provides a guideline on how to clear a station tile in OpenTTD, based on a chat thread.&nbsp;
 
-## Steps to Create the Document
+## The <SwmToken path="/src/station_cmd.cpp" pos="792:2:2" line-data="CommandCost ClearTile_Station(TileIndex tile, DoCommandFlag flags);" repo-id="Z2l0aHViJTNBJTNBT3BlblRURC1jb3BpbG90LWRlbW8lM0ElM0Fzd2ltbWlv" repo-name="OpenTTD-copilot-demo">`ClearTile_Station`</SwmToken> Command
 
-1. **Extract Relevant Information**: Identify and extract the key points and relevant information from the chat thread.
-2. **Structure the Content**: Organize the extracted information into a logical structure with an introduction, body, and summary.
-3. **Format Using Markdown**: Utilize markdown elements such as headers, lists, and code blocks to format the content appropriately.
-4. **Escape Special Characters**: Ensure that any special characters in the markdown content are properly escaped to prevent rendering issues.
-5. **Preserve Code Blocks**: Maintain the integrity of any code snippets by wrapping them in backticks.
+To clear a station tile, you can use the <SwmToken path="/src/station_cmd.cpp" pos="792:2:2" line-data="CommandCost ClearTile_Station(TileIndex tile, DoCommandFlag flags);" repo-id="Z2l0aHViJTNBJTNBT3BlblRURC1jb3BpbG90LWRlbW8lM0ElM0Fzd2ltbWlv" repo-name="OpenTTD-copilot-demo">`ClearTile_Station`</SwmToken> function defined in <SwmPath repo-id="Z2l0aHViJTNBJTNBT3BlblRURC1jb3BpbG90LWRlbW8lM0ElM0Fzd2ltbWlv" repo-name="OpenTTD-copilot-demo" path="/src/station_cmd.cpp">`(OpenTTD-copilot-demo) src/station_cmd.cpp`</SwmPath>.
+
+This function handles the process of clearing a single tile of a station by checking the type of station and ensuring that the appropriate demolition error messages are returned if the station cannot be cleared automatically. Depending on the station type, it calls specific functions to handle the removal process.
 
 ## Example
 
-Below is an abstract example based on the provided chat thread:
+Here is the relevant code excerpt for <SwmToken path="/src/station_cmd.cpp" pos="792:2:2" line-data="CommandCost ClearTile_Station(TileIndex tile, DoCommandFlag flags);" repo-id="Z2l0aHViJTNBJTNBT3BlblRURC1jb3BpbG90LWRlbW8lM0ElM0Fzd2ltbWlv" repo-name="OpenTTD-copilot-demo">`ClearTile_Station`</SwmToken>
 
+<SwmSnippet path="/src/station_cmd.cpp" line="4709" repo-id="Z2l0aHViJTNBJTNBT3BlblRURC1jb3BpbG90LWRlbW8lM0ElM0Fzd2ltbWlv">
+
+---
+
+&nbsp;
+
+```c++
+CommandCost ClearTile_Station(TileIndex tile, DoCommandFlag flags)
+{
+	if (flags & DC_AUTO) {
+		switch (GetStationType(tile)) {
+			default: break;
+			case STATION_RAIL:     return_cmd_error(STR_ERROR_MUST_DEMOLISH_RAILROAD);
+			case STATION_WAYPOINT: return_cmd_error(STR_ERROR_BUILDING_MUST_BE_DEMOLISHED);
+			case STATION_AIRPORT:  return_cmd_error(STR_ERROR_MUST_DEMOLISH_AIRPORT_FIRST);
+			case STATION_TRUCK:    return_cmd_error(HasTileRoadType(tile, RTT_TRAM) ? STR_ERROR_MUST_DEMOLISH_CARGO_TRAM_STATION_FIRST : STR_ERROR_MUST_DEMOLISH_TRUCK_STATION_FIRST);
+			case STATION_BUS:      return_cmd_error(HasTileRoadType(tile, RTT_TRAM) ? STR_ERROR_MUST_DEMOLISH_PASSENGER_TRAM_STATION_FIRST : STR_ERROR_MUST_DEMOLISH_BUS_STATION_FIRST);
+			case STATION_ROADWAYPOINT: return_cmd_error(STR_ERROR_BUILDING_MUST_BE_DEMOLISHED);
+			case STATION_BUOY:     return_cmd_error(STR_ERROR_BUOY_IN_THE_WAY);
+			case STATION_DOCK:     return_cmd_error(STR_ERROR_MUST_DEMOLISH_DOCK_FIRST);
+			case STATION_OILRIG:
+				SetDParam(1, STR_INDUSTRY_NAME_OIL_RIG);
+				return_cmd_error(STR_ERROR_GENERIC_OBJECT_IN_THE_WAY);
+		}
+	}
+
+	switch (GetStationType(tile)) {
+		case STATION_RAIL:     return RemoveRailStation(tile, flags);
 ```
-# Example Title
 
-## Intro
-This is an example of a human-readable markdown document.
+---
 
-## Content
-- Key Point 1: Extract relevant information.
-- Key Point 2: Structure the content.
-- Key Point 3: Format using markdown.
+</SwmSnippet>
 
-## Conclusion
-The document provides a guideline on creating markdown documents from chat threads.
-```
+For more details, you can refer to the document, which explains the process of clearing a station tile in the game&nbsp;
 
-## Conclusion
+## Important Notice
 
-By following these steps, you can effectively create a human-readable and well-formatted markdown document from any chat thread. This ensures that the information is presented clearly and is easy to understand.
+This function caused many bugs in the past if you intend to change it please contact one of the moderators of the repository
 
 <SwmMeta version="3.0.0"><sup>Powered by [Swimm](https://app.swimm.io/)</sup></SwmMeta>
