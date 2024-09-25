@@ -1,6 +1,7 @@
 ---
 title: Testing Framework and Running Tests in the OpenTTD Copilot Demo Repository
 ---
+
 # Testing Framework and Running Tests in the OpenTTD Copilot Demo Repository
 
 ## Introduction
@@ -96,7 +97,7 @@ public:
 
 </SwmSnippet>
 
-### 5\. Important Notice
+### 5\. Framework limitations
 
 The Catch2 framework does not work with mac M1 chips, please make sure you are using a x86 device
 
