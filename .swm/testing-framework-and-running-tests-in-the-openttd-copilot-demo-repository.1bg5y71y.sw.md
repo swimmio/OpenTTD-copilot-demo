@@ -1,7 +1,7 @@
 ---
 title: Testing Framework and Running Tests in the OpenTTD Copilot Demo Repository
 ---
-# /§Testing Framework and Running Tests in the OpenTTD Copilot Demo Repository
+# Testing Framework and Running Tests in the OpenTTD Copilot Demo Repository
 
 ## Introduction
 
